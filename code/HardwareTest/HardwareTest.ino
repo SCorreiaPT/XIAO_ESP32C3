@@ -19,7 +19,7 @@
 #define UART_BAUD     115200
 #define MAXNUM        1000000
 
-unsigned long start, stop, t;
+unsigned long start, t;
 unsigned long i = 2;
 
 void setup() {
@@ -50,28 +50,20 @@ void setup() {
 
 void loop() {
 
-  
-
-  boolean p = isPrime(i);
+  u_int8_t p = isPrime(i);
   i++;
 
   if(i>MAXNUM){
-    stop = millis();
-    t = stop - start; 
     i = 2;
-
-    SerialDEBUG.print("DONE in ");
-    SerialDEBUG.print(t);
-    SerialDEBUG.println(" ms");
-
+    SerialDEBUG.println(millis() - start);
     start = millis();
   }
     
 }
 
 
-boolean isPrime(unsigned long x) {
-  boolean prime = true;
+u_int8_t isPrime(unsigned long x) {
+  u_int8_t prime = true;
   
   for(int i = 2; i <= x/2; i++) {     // Loop up to half the number
     if(x % i == 0) {                  // Check if divisible
@@ -79,6 +71,6 @@ boolean isPrime(unsigned long x) {
       break;
     }
   }
-  
+
   return prime;
 }
